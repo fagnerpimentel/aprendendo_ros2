@@ -1,0 +1,65 @@
+version: '2'
+
+services:
+  
+  xserver:
+    image: devrt/xserver
+    environment:
+      - DISPLAY=:9
+    ports:
+      - "3000:80"
+
+  ros-master:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    image: aprendendo_ros2:latest
+    depends_on:
+      - xserver
+    volumes_from:
+      - xserver
+    environment:
+      - DISPLAY=:9
+    tty: true
+    # command:
+    #   - /bin/bash
+    #   - -c
+    #   - |
+    #     roslaunch arm_challenge start.launch
+
+
+  # turtlesim:
+  #   image: aprendendo_ros2:latest
+  #   depends_on:
+  #     - ros-master
+  #   volumes_from:
+  #     - ros-master
+  #   volumes:
+  #     - .:/ws_aprendendo_ros2:rw
+  #   environment:  
+  #     - ROS_MASTER_URI=:http://ros-master:11311    
+  #     - DISPLAY=:9
+  #   tty: true
+  #   command:
+  #     - /bin/bash
+  #     - -c
+  #     - |
+  #       ros2 run turtlesim turtlesim_node
+
+  terminal:
+    image: aprendendo_ros2:latest
+    depends_on:
+      - ros-master
+    volumes_from:
+      - ros-master
+    volumes:
+      - .:/ws_aprendendo_ros2:rw
+    environment:  
+      - ROS_MASTER_URI=:http://ros-master:11311    
+      - DISPLAY=:9
+    tty: true
+    command:
+      - /bin/bash
+      - -c
+      - |
+        xterm -hold -name aprendendo_ros2 -e "tmux new -s aprendendo_ros2"
