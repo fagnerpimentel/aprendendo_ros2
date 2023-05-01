@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>pacote_de_exemplos</name>
+  <version>0.0.0</version>
+  <description>Pacote com exemplos utilizados no curso "aprendendo_ros2"</description>
+  <maintainer email="FagnerPiemntel@gmail.com">Fagner Pimentel</maintainer>
+  <license>TODO: License declaration</license>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

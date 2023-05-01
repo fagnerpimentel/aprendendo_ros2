@@ -1,14 +1,26 @@
 # aprendendo_ros2
 
-Criando o WorkSpace:
-
+Compilando o workspace:
 ```bash
-mkdir src
-cd src
+colcon build
 ```
 
 Criando um Pacote:
 ```bash
-ros2 pkg create meu_primeiro_pacote
+cd src
+ros2 pkg create meu_primeiro_pacote --build-type ament_python
+cd ..
+
+```
+
+Executando um nó:
+```bash
+ros2 run meu_primeiro_pacote meu_primeiro_no
+
+```
+
+Executando um launch:
+```bash
+ros2 launch meu_primeiro_pacote meu_primeiro_launch.py
 
 ```
