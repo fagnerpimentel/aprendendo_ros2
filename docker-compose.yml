@@ -4,6 +4,9 @@ services:
   
   xserver:
     image: devrt/xserver
+    ipc: host
+    security_opt:
+      - seccomp:unconfined
     environment:
       - DISPLAY=:9
     ports:
@@ -14,13 +17,15 @@ services:
       context: .
       dockerfile: dockerfile
     image: aprendendo_ros2:latest
+    ipc: host
+    security_opt:
+      - seccomp:unconfined
     depends_on:
       - xserver
     volumes_from:
       - xserver
     environment:
       - DISPLAY=:9
-    tty: true
 
   terminal:
     image: aprendendo_ros2:latest
@@ -33,9 +38,28 @@ services:
     environment:  
       - ROS_MASTER_URI=:http://ros-master:11311    
       - DISPLAY=:9
-    tty: true
     command:
       - /bin/bash
       - -c
       - |
         xterm -hold -T Terminal -e "tmux" 
+
+
+  simulador:
+    image: aprendendo_ros2:latest
+    ipc: host
+    security_opt:
+      - seccomp:unconfined
+    depends_on:
+      - ros-master
+    volumes_from:
+      - ros-master
+    environment:  
+      - ROS_MASTER_URI=:http://ros-master:11311    
+      - DISPLAY=:9
+    privileged: true
+    command:
+      - /bin/bash
+      - -c
+      - |
+        xterm -hold -T Simulator -e "ros2 launch gazebo_ros gazebo.launch.py" 

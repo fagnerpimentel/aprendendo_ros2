@@ -37,3 +37,8 @@ ex:
 ros2 launch meu_primeiro_pacote meu_primeiro_launch.py
 
 ```
+
+Inicializando o Gazebo
+```bash
+ros2 launch gazebo_ros gazebo.launch.py
+```
