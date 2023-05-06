@@ -18,11 +18,22 @@ SHELL [ "/bin/bash" , "-c"]
 RUN mkdir /home/robot/ws_aprendendo_ros2
 WORKDIR /home/robot/ws_aprendendo_ros2
 
+
+
 # instala dependências do projeto  
 RUN cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
 RUN apt-get update
+RUN apt-get install -y --no-install-recommends apt-utils git
+RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models
+
+
 COPY instalar_dependencias.sh .
 RUN ./instalar_dependencias.sh
+
+
+# COPY src/hera_description src/hera_description
+RUN git clone -b ros2 https://github.com/Home-Environment-Robot-Assistant/hera_description.git src/hera_description
+RUN ./src/hera_description/install_dependencies.sh
 
 # comandos carregados na inicialização dos containers
 COPY entrypoint.sh .

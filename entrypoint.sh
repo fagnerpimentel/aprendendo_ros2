@@ -9,4 +9,6 @@ colcon build --symlink-install
 # Source no ROS2 da area de trabalho
 source install/setup.bash 
 
+xacro install/hera_description/share/hera_description/robots/hera_full.urdf.xacro -o install/hera_description/share/hera_description/robots/hera_full.urdf
+
 exec "$@"
