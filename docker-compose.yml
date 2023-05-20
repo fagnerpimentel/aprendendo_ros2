@@ -64,7 +64,7 @@ services:
     environment:  
       - ROS_MASTER_URI=:http://ros-master:11311    
       - DISPLAY=:9
-      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/usr/share/gazebo-11/models/:/home/robot/gazebo_models
+      - GAZEBO_MODEL_PATH=/usr/share/gazebo-11/models/:/home/robot/gazebo_models
     privileged: true
     command:
       - /bin/bash
@@ -87,7 +87,7 @@ services:
     environment:  
       - ROS_MASTER_URI=:http://ros-master:11311    
       - DISPLAY=:9
-      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/usr/share/gazebo-11/models/:/home/robot/gazebo_models
+      - GAZEBO_MODEL_PATH=/usr/share/gazebo-11/models/:/home/robot/gazebo_models
     privileged: true
     command:
       - /bin/bash

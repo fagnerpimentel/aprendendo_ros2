@@ -24,10 +24,11 @@ WORKDIR /home/robot/ws_aprendendo_ros2
 RUN cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends apt-utils git
-RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models
+RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models/
 
 
 COPY instalar_dependencias.sh .
+RUN sed -i -e 's/\r$//' instalar_dependencias.sh
 RUN ./instalar_dependencias.sh
 
 
@@ -37,6 +38,7 @@ RUN ./src/hera_description/install_dependencies.sh
 
 # comandos carregados na inicialização dos containers
 COPY entrypoint.sh .
+RUN sed -i -e 's/\r$//' entrypoint.sh
 RUN /home/robot/ws_aprendendo_ros2/entrypoint.sh
 ENTRYPOINT [ "/home/robot/ws_aprendendo_ros2/entrypoint.sh" ]
 
