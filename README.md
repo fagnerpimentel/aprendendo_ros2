@@ -2,14 +2,18 @@
 
 Compilando o ambiente ROS
 ```bash
-docker-compose build
+docker-compose build # use esse comando se você estiver rodando no linux
+docker compose build # use esse comando se você estiver rodando no windows
 ```
 
 Rodando o ambiente ROS
 ```bash
-docker-compose up terminal
+docker-compose up terminal # use esse comando se você estiver rodando no linux
+docker compose up terminal # use esse comando se você estiver rodando no windows
 ```
 ---
+Os próximos comandos são executados dentro do Docker
+
 Compilando o workspace:
 ```bash
 colcon build

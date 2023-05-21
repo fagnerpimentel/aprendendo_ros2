@@ -17,39 +17,27 @@ services:
       context: .
       dockerfile: dockerfile
     image: aprendendo_ros2:latest
-    ipc: host
-    security_opt:
-      - seccomp:unconfined
-    depends_on:
-      - xserver
-    volumes_from:
-      - xserver
-    environment:
-      - DISPLAY=:9
-    # command:
-    #   - /bin/bash
-    #   - -c
-    #   - |
-    #     source /opt/ros/humble/setup.bash && source /home/robot/ws_aprendendo_ros2/install/setup.bash && xacro /home/robot/ws_aprendendo_ros2/install/hera_description/share/hera_description/robots/hera_full.urdf.xacro -o /home/robot/ws_aprendendo_ros2/install/hera_description/share/hera_description/robots/hera_full.urdf
-        
+
   terminal:
     image: aprendendo_ros2:latest
+    ipc: host
     depends_on:
+      - xserver
       - ros-master
     volumes_from:
+      - xserver
       - ros-master
     volumes:
       - ./src:/home/robot/ws_aprendendo_ros2/src:rw
     environment:  
       - ROS_MASTER_URI=:http://ros-master:11311    
       - DISPLAY=:9
-      # - TURTLEBOT3_MODEL=burger
-      # - LDS_MODEL=LDS-01
     command:
       - /bin/bash
       - -c
       - |
         xterm -hold -T Terminal -e "tmux" 
+        # xterm -hold -T Terminal -e "ros2 launch robot_description display.launch.py" 
 
 
   simulador:
@@ -58,8 +46,10 @@ services:
     security_opt:
       - seccomp:unconfined
     depends_on:
+      - xserver
       - ros-master
     volumes_from:
+      - xserver
       - ros-master
     environment:  
       - ROS_MASTER_URI=:http://ros-master:11311    
@@ -79,8 +69,10 @@ services:
     security_opt:
       - seccomp:unconfined
     depends_on:
+      - xserver
       - ros-master
     volumes_from:
+      - xserver
       - ros-master
     volumes:
       - ./src:/home/robot/ws_aprendendo_ros2/src:rw

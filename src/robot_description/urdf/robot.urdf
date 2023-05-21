@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+
+<robot name="r2d2">
+
+  <!-- link: base_link -->
+  <link name="base_link"/>
+  <joint name="base_link_to_torso" type="fixed">
+    <parent link="base_link"/>
+    <child link="torso"/>
+  </joint>
+
+  <!-- LINKS -->
+
+  <!-- link: right_front_wheel -->
+  <link name="right_front_wheel">
+    <visual>
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- link: right_back_wheel -->
+  <link name="right_back_wheel">
+    <visual>
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- link: left_front_wheel -->
+  <link name="left_front_wheel">
+    <visual>
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- link: left_back_wheel -->
+  <link name="left_back_wheel">
+    <visual>
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- link: right_base -->
+  <link name="right_base">
+    <visual>
+      <geometry>
+        <box size="0.4 0.1 0.1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- link: left_base -->
+  <link name="left_base">
+    <visual>
+      <geometry>
+        <box size="0.4 0.1 0.1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- link: right_leg -->
+  <link name="right_leg">
+    <visual>
+      <geometry>
+        <box size="0.2 0.1 0.6"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- link: left_leg -->
+  <link name="left_leg">
+    <visual>
+      <geometry>
+        <box size="0.2 0.1 0.6"/>
+      </geometry>
+    </visual>
+  </link>
+
+ <!-- link: torso-->
+  <link name="torso">
+    <visual>
+      <geometry>
+        <cylinder length="0.6" radius="0.2"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- link: head -->
+  <link name="head">
+    <visual>
+      <geometry>
+        <sphere radius="0.2"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- link: camera-->
+  <link name="camera">
+   <visual>
+     <geometry>
+       <box size="0.08 0.08 0.08"/>
+     </geometry>
+   </visual>
+  </link>
+
+  <!-- JOINTS -->
+
+  <!-- joint: torso-> head -->
+  <joint name="torso_to_head" type="revolute">
+    <origin xyz="0 0 0.3" rpy="0 0 0"/>
+    <parent link="torso"/>
+    <child link="head"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" velocity="0.5" lower="-1.5707" upper="1.5707"/>
+  </joint>
+
+  <!-- joint: head -> camera -->
+  <joint name="head_to_camera" type="fixed">
+    <origin xyz="0.13 0 0.13" rpy="0 0 0"/>
+    <parent link="head"/>
+    <child link="camera"/>
+  </joint>
+
+  <!-- joint: torso-> right_leg -->
+  <joint name="torso_to_right_leg" type="fixed">
+    <origin xyz="0 0.22 -0.05" rpy="0 0 0"/>
+    <parent link="torso"/>
+    <child link="right_leg"/>
+  </joint>
+
+  <!-- joint: torso-> left_leg -->
+  <joint name="torso_to_left_leg" type="fixed">
+    <origin xyz="0 -0.22 -0.05" rpy="0 0 0"/>
+    <parent link="torso"/>
+    <child link="left_leg"/>
+  </joint>
+
+  <!-- joint: right_leg -> right_base -->
+  <joint name="right_leg_to_right_base" type="fixed">
+    <origin xyz="0 0 -0.3" rpy="0 0 0"/>
+    <parent link="right_leg"/>
+    <child link="right_base"/>
+  </joint>
+
+  <!-- joint: left_leg -> left_base -->
+  <joint name="left_leg_to_left_base" type="fixed">
+    <origin xyz="0 0 -0.3" rpy="0 0 0"/>
+    <parent link="left_leg"/>
+    <child link="left_base"/>
+  </joint>
+
+  <!-- joint: right_base -> right_front_wheel -->
+  <joint name="right_base_to_right_front_wheel" type="continuous">
+    <origin xyz="0.133333333333 0 -0.085" rpy="0 0 0"/>
+    <parent link="right_base"/>
+    <child link="right_front_wheel"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- joint: left_base -> left_front_wheel -->
+  <joint name="right_base_to_right_back_wheel" type="continuous">
+    <origin xyz="-0.133333333333 0 -0.085" rpy="0 0 0"/>
+    <parent link="right_base"/>
+    <child link="right_back_wheel"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- joint: left_base -> left_front_wheel -->
+  <joint name="left_base_to_left_front_wheel" type="continuous">
+    <origin xyz="0.133333333333 0 -0.085" rpy="0 0 0"/>
+    <parent link="left_base"/>
+    <child link="left_front_wheel"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- joint: left_base -> left_front_wheel -->
+  <joint name="left_base_to_left_back_wheel" type="continuous">
+    <origin xyz="-0.133333333333 0 -0.085" rpy="0 0 0"/>
+    <parent link="left_base"/>
+    <child link="left_back_wheel"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+</robot>
