@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="wheel" params="name parent *origin">
+
+    <!-- joint: parent_base -> wheel -->
+    <joint name="${parent}_to_${name}" type="continuous">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+
+    <!-- link: wheel -->
+    <link name="${name}">
+      <origin xyz="0 0 0" rpy="${-PI/2} 0 0"/>
+      <xacro:create_sphere m="${wheel_mass}" r="${wheel_radius}">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:create_sphere>
+    </link>
+
+
+  </xacro:macro>
+
+</robot>

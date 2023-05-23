@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot name="myfirstrobot"
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find robot_description)/urdf/macros/link_geometry.urdf.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/macros/properties.urdf.xacro" />
+
+  <xacro:include filename="$(find robot_description)/urdf/macros/parts/base.urdf.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/macros/parts/head.urdf.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/macros/parts/leg.urdf.xacro" />
+
+  <xacro:include filename="$(find robot_description)/urdf/simulation/gazebo_base.urdf.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/simulation/gazebo_laser.urdf.xacro" />
+  <xacro:include filename="$(find robot_description)/urdf/simulation/gazebo_camera.urdf.xacro" />
+
+  <!-- Robot -->
+  
+  <xacro:base name="base_link"/>
+  <xacro:head name="head" parent="base_link"/>
+  <xacro:leg name="left" parent="base_link">
+    <origin xyz="0  ${robot_scale/3} -${robot_scale/10}" rpy="0 0 0"/>
+  </xacro:leg>
+  <xacro:leg name="right" parent="base_link">
+    <origin xyz="0 -${robot_scale/3} -${robot_scale/10}" rpy="0 0 0"/>
+  </xacro:leg>
+
+
+  <!-- Plugins -->
+  <xacro:gazebo_base/>
+  <xacro:gazebo_laser reference="base_scan"/>
+  <xacro:gazebo_camera reference="head_box"/>
+
+</robot>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="robot_scale" value="0.6" />
+
+    <xacro:macro name="head" params="name parent">
+
+      <!-- link: head -->
+      <link name="${name}">
+        <xacro:create_sphere m="${head_mass}" r="${head_radius}">
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:create_sphere>
+      </link>
+
+      <!-- link: head_box -->
+      <link name="${name}_box">
+        <xacro:create_box m="${head_mass/100}" x="${head_radius/3}" y="${head_radius/3}" z="${head_radius/3}">
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:create_box>
+      </link>
+
+      <!-- joint: base -> head -->
+      <joint name="joint_${parent}_to_${name}" type="revolute">
+        <origin xyz="0 0 ${robot_scale/2}" rpy="0 0 0"/>
+        <parent link="${parent}"/>
+        <child link="${name}"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="30" velocity="0.5" lower="-${PI/2}" upper="${PI/2}"/>
+      </joint>
+
+      <!-- joint: head -> head_box -->
+      <joint name="joint_${name}_to_${name}_box" type="fixed">
+        <origin xyz="${robot_scale/5} 0 ${robot_scale/4}" rpy="0 0 0"/>
+        <parent link="${name}"/>
+        <child link="${name}_box"/>
+      </joint>
+
+    </xacro:macro>
+
+</robot>

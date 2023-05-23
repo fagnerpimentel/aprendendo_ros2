@@ -10,7 +10,11 @@ apt-get install -y --no-install-recommends \
     python3-pip \
     ros-$ROS_DISTRO-xacro \
     ros-$ROS_DISTRO-gazebo-ros \
-    ros-$ROS_DISTRO-gazebo-ros-pkgs 
+    ros-$ROS_DISTRO-gazebo-ros-pkgs \
+    ros-$ROS_DISTRO-robot-localization \
+    ros-$ROS_DISTRO-slam-toolbox \
+    ros-$ROS_DISTRO-navigation2 \
+    ros-$ROS_DISTRO-nav2-bringup
 
 pip install setuptools==58.2.0
 

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="base" params="name">
+
+    <!-- link: base_footprint -->
+    <link name='base_footprint'/>
+
+    <!-- joint: base_footprint -> base -->
+    <joint name="joint_base_footprint_to_base" type="fixed">
+      <origin xyz="0 0 ${2*robot_scale/3}" rpy="0 0 0"/>
+      <parent link="base_footprint"/>
+      <child link="${name}"/>
+    </joint>
+
+    <!-- link: base -->
+    <link name="${name}">
+      <xacro:create_cylinder m="${body_mass}" r="${body_radius}" l="${body_length}">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:create_cylinder>
+    </link>
+
+  <joint name="base_to_laser" type="fixed">
+    <origin xyz="0 0 -0.2" rpy="0 0 0"/>
+    <parent link="${name}"/>
+    <child link="base_scan"/>
+  </joint>
+  <link name="base_scan">
+  </link>
+
+  </xacro:macro>
+
+</robot>

@@ -10,7 +10,7 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
     urdf_tutorial_path = get_package_share_path('robot_description')
-    default_model_path = urdf_tutorial_path / 'urdf/robot.urdf'
+    default_model_path = urdf_tutorial_path / 'urdf/sam_bot_description.urdf'
     default_rviz_config_path = urdf_tutorial_path / 'rviz/robot.rviz'
 
     gui_arg = DeclareLaunchArgument(name='gui', default_value='true', choices=['true', 'false'],

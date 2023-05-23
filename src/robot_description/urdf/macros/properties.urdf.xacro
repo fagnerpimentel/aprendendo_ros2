@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="PI"             value="3.14159265" />
+
+  <xacro:property name="robot_scale"     value="1.0" />
+  <xacro:property name="robot_mass"      value="10" />
+
+  <xacro:property name="body_mass"      value="${35 * robot_mass/100}" />
+  <xacro:property name="body_radius"    value="${robot_scale/3}" />
+  <xacro:property name="body_length"    value="${robot_scale}" />
+
+  <xacro:property name="head_mass"      value="${5 * robot_mass/100}" />
+  <xacro:property name="head_radius"    value="${body_radius}" />
+
+  <xacro:property name="leg_mass"       value="${5 * robot_mass/100}" />
+  <xacro:property name="leg_x"          value="${robot_scale/3}" />
+  <xacro:property name="leg_y"          value="${robot_scale/6}" />
+  <xacro:property name="leg_z"          value="${robot_scale}" />
+
+  <xacro:property name="leg_base_mass"  value="${15 * robot_mass/100}" />
+  <xacro:property name="leg_base_x"     value="${2*robot_scale/3}" />
+  <xacro:property name="leg_base_y"     value="${robot_scale/6}" />
+  <xacro:property name="leg_base_z"     value="${robot_scale/6}" />
+
+  <xacro:property name="wheel_mass"      value="${5 * robot_mass/100}" />
+  <xacro:property name="wheel_radius"    value="${body_radius/10}" />
+
+</robot>

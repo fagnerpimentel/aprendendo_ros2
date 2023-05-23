@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+
+  <!-- box -->
+  <xacro:macro name="create_box" params="m x y z *origin">
+    <visual>
+      <xacro:insert_block name="origin"/>
+      <geometry>
+        <box size="${x} ${y} ${z}"/>
+      </geometry>
+      <material name="Cyan"/>
+    </visual>
+    <collision>
+      <xacro:insert_block name="origin"/>
+      <geometry>
+        <box size="${x} ${y} ${z}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${m}"/>
+      <inertia
+        ixx="${1/12*m*(y*y+z*z)}" ixy="0.0" ixz="0.0"
+        iyy="${1/12*m*(x*x+z*z)}" iyz="0.0"
+        izz="${1/12*m*(x*x+y*y)}"/>
+    </inertial>
+  </xacro:macro>
+
+  <!-- cylinder -->
+  <xacro:macro name="create_cylinder" params="m r l *origin">
+    <visual>
+      <xacro:insert_block name="origin"/>
+      <geometry>
+        <cylinder radius="${r}" length="${l}"/>
+      </geometry>
+      <material name="Cyan"/>
+    </visual>
+    <collision>
+      <xacro:insert_block name="origin"/>
+      <geometry>
+        <cylinder radius="${r}" length="${l}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${m}"/>
+      <inertia
+        ixx="${1/12*m*(3*r*r+l*l)}" ixy="0.0" ixz="0.0"
+        iyy="${1/12*m*(3*r*r+l*l)}" iyz="0.0"
+        izz="${1/2*(m*r*r)}"/>
+    </inertial>
+  </xacro:macro>
+
+  <!-- sphere -->
+  <xacro:macro name="create_sphere" params="m r *origin">
+    <visual>
+      <xacro:insert_block name="origin" />
+      <geometry>
+        <sphere radius="${r}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <xacro:insert_block name="origin" />
+      <geometry>
+        <sphere radius="${r}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${m}"/>
+      <inertia
+        ixx="${(2/5)*m*r*r}" ixy="0.0" ixz="0.0"
+        iyy="${(2/5)*m*r*r}" iyz="0.0"
+        izz="${(2/5)*m*r*r}"/>
+    </inertial>
+  </xacro:macro>
+
+</robot>
