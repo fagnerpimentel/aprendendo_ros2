@@ -32,60 +32,13 @@ services:
     environment:  
       - ROS_MASTER_URI=:http://ros-master:11311    
       - DISPLAY=:9
-      - GAZEBO_MODEL_PATH=/usr/share/gazebo-11/models/:/home/robot/gazebo_models
     command:
       - /bin/bash
       - -c
       - |
         # xterm -hold -T Terminal -e "tmux" 
-        # xterm -hold -T Terminal -e "ros2 launch robot_nav load.launch.py" 
-        # xterm -hold -T Terminal -e "ros2 launch robot_nav mapping.launch.py" 
-        xterm -hold -T Terminal -e "ros2 launch robot_nav navigation.launch.py" 
-
-
-  simulador:
-    image: aprendendo_ros2:latest
-    ipc: host
-    security_opt:
-      - seccomp:unconfined
-    depends_on:
-      - xserver
-      - ros-master
-    volumes_from:
-      - xserver
-      - ros-master
-    environment:  
-      - ROS_MASTER_URI=:http://ros-master:11311    
-      - DISPLAY=:9
-      - GAZEBO_MODEL_PATH=/usr/share/gazebo-11/models/:/home/robot/gazebo_models
-    privileged: true
-    command:
-      - /bin/bash
-      - -c
-      - | 
-        xterm -hold -T Simulator -e "ros2 launch gazebo_ros gazebo.launch.py" 
-
-
-  hera:
-    image: aprendendo_ros2:latest
-    ipc: host
-    security_opt:
-      - seccomp:unconfined
-    depends_on:
-      - xserver
-      - ros-master
-    volumes_from:
-      - xserver
-      - ros-master
-    volumes:
-      - ./src:/home/robot/ws_aprendendo_ros2/src:rw
-    environment:  
-      - ROS_MASTER_URI=:http://ros-master:11311    
-      - DISPLAY=:9
-      - GAZEBO_MODEL_PATH=/usr/share/gazebo-11/models/:/home/robot/gazebo_models
-    privileged: true
-    command:
-      - /bin/bash
-      - -c
-      - | 
-        xterm -hold -T Hera -e "source install/setup.bash && ros2 launch hera_description load_description.launch.py" 
+        # xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos display.launch.py" 
+        # xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos load.launch.py" 
+        # xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos mapping_slam_toolbox.launch.py" 
+        # xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
+        xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos navigation.launch.py" 

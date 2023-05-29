@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="simple_room">
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0 0 40 0 1.57 0</pose>
+      </camera>
+    </gui>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://simple_room</uri>
+      <pose>0 0 0 0 -0 0</pose>
+    </include>
+
+    <population name="square_population">
+      <pose>-0.5 -0.5 0 0 0 0</pose>
+      <model name="chess">
+        <include>
+          <name>square1</name>
+          <static>true</static>
+          <pose>0 0 0 0 0 0</pose>
+          <uri>model://wood_square</uri>
+        </include>
+        <include>
+          <name>square2</name>
+          <static>true</static>
+          <pose>1 1 0 0 0 0</pose>
+          <uri>model://wood_square</uri>
+        </include>
+      </model>
+      <box>
+        <size>50 50 0</size>
+      </box>
+      <distribution>
+        <type>grid</type>
+        <rows>10</rows>
+        <cols>10</cols>
+        <step>2 2 0</step>
+      </distribution>
+    </population>    
+    
+  </world>
+</sdf>

@@ -1,0 +1,639 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+
+<model name="r2d2">
+
+  <!-- link: base_footprint -->
+  <link name="base_footprint"/>
+  <!-- link: base -->
+  <link name="base_link">
+    <pose relative_to="base_footprint">0 0 0.39999999999999997 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="base_link">0 0 0 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.19999999999999998</radius>
+          <length>0.6</length>
+        </cylinder>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="base_link">0 0 0 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.19999999999999998</radius>
+          <length>0.6</length>
+        </cylinder>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>3.5</mass>
+      <inertia>
+        <ixx>0.13999999999999999</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>0.13999999999999999</iyy>
+        <iyz>0.0</iyz>
+        <izz>0.06999999999999999</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- joint: base_footprint -> base -->
+  <joint name="joint_base_footprint_to_base" type="fixed">
+    <parent>base_footprint</parent>
+    <child>base_link</child>
+  </joint>
+  <!-- link: head -->
+  <link name="head">
+    <pose relative_to="base_link">0 0 0.3 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="head">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.19999999999999998</radius>
+        </sphere>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="head">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.19999999999999998</radius>
+        </sphere>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.5</mass>
+      <inertia>
+        <ixx>0.008</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>0.008</iyy>
+        <iyz>0.0</iyz>
+        <izz>0.008</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- link: head_box -->
+  <link name="head_box">
+    <pose relative_to="head">0.12 0 0.15 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="head_box">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.06666666666666667 0.06666666666666667 0.06666666666666667</size>
+        </box>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="head_box">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.06666666666666667 0.06666666666666667 0.06666666666666667</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.005</mass>
+      <inertia>
+        <ixx>3.7037037037037033e-06</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>3.7037037037037033e-06</iyy>
+        <iyz>0.0</iyz>
+        <izz>3.7037037037037033e-06</izz>
+      </inertia>
+    </inertial>
+            <sensor type="camera" name="camera1">
+          <update_rate>60</update_rate>
+          <visualize>true</visualize>
+          <camera name="head">
+            <horizontal_fov>1.3962634</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>300</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <ros>
+              <!-- <namespace>r2d2</namespace> -->
+              <!-- TODO(louise) Remapping not working due to https://github.com/ros-perception/image_common/issues/93 -->
+              <!-- <remapping>image_raw:=image_demo</remapping> -->
+              <!-- <remapping>camera_info:=camera_info_demo</remapping> -->
+            </ros>
+            <!-- camera_name>omit so it defaults to sensor name</camera_name-->
+            <!-- frame_name>omit so it defaults to link name</frame_name-->
+          </plugin>
+        </sensor>
+  </link>
+  <!-- joint: base -> head -->
+  <joint name="joint_base_to_head" type="revolute">
+    <parent>base_link</parent>
+    <child>head</child>
+    <axis>
+      <xyz>0 0 1</xyz>
+      <limit>
+        <effort>30</effort>
+        <velocity>0.5</velocity>
+        <lower>-1.570796325</lower>
+        <upper>1.570796325</upper>
+      </limit>
+    </axis>
+  </joint>
+  <!-- joint: head -> head_box -->
+  <joint name="joint_head_to_head_box" type="fixed">
+    <parent>head</parent>
+    <child>head_box</child>
+  </joint>
+  <!-- link: leg -->
+  <link name="right_leg">
+    <pose relative_to="base_link">0  0.19999999999999998 -0.06 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="right_leg">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.19999999999999998 0.09999999999999999 0.6</size>
+        </box>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="right_leg">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.19999999999999998 0.09999999999999999 0.6</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.5</mass>
+      <inertia>
+        <ixx>0.015416666666666665</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>0.016666666666666663</iyy>
+        <iyz>0.0</iyz>
+        <izz>0.002083333333333333</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- link: leg_base -->
+  <link name="right_leg_base">
+    <pose relative_to="right_leg">0 0 -0.3 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="right_leg_base">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.39999999999999997 0.09999999999999999 0.09999999999999999</size>
+        </box>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="right_leg_base">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.39999999999999997 0.09999999999999999 0.09999999999999999</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>1.5</mass>
+      <inertia>
+        <ixx>0.0024999999999999996</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>0.021249999999999998</iyy>
+        <iyz>0.0</iyz>
+        <izz>0.021249999999999998</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- joint: parent -> leg -->
+  <joint name="base_to_right_leg" type="fixed">
+    <parent>base_link</parent>
+    <child>right_leg</child>
+  </joint>
+  <!-- joint: leg -> leg_base -->
+  <joint name="right_leg_to_right_leg_base" type="fixed">
+    <parent>right_leg</parent>
+    <child>right_leg_base</child>
+  </joint>
+  <!-- link: wheel -->
+  <link name="right_front_wheel">
+    <pose relative_to="right_leg_base">0.12 0 -0.06 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="right_front_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="right_front_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.5</mass>
+      <inertia>
+        <ixx>7.999999999999997e-05</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>7.999999999999997e-05</iyy>
+        <iyz>0.0</iyz>
+        <izz>7.999999999999997e-05</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- joint: parent_base -> wheel -->
+  <joint name="right_leg_base_to_right_front_wheel" type="revolute">
+    <parent>right_leg_base</parent>
+    <child>right_front_wheel</child>
+    <axis>
+      <xyz>0 1 0</xyz>
+    </axis>
+  </joint>
+  <!-- link: wheel -->
+  <link name="right_center_wheel">
+    <pose relative_to="right_leg_base">0 0 -0.06122448979591836 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="right_center_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="right_center_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.5</mass>
+      <inertia>
+        <ixx>7.999999999999997e-05</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>7.999999999999997e-05</iyy>
+        <iyz>0.0</iyz>
+        <izz>7.999999999999997e-05</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- joint: parent_base -> wheel -->
+  <joint name="right_leg_base_to_right_center_wheel" type="revolute">
+    <parent>right_leg_base</parent>
+    <child>right_center_wheel</child>
+    <axis>
+      <xyz>0 1 0</xyz>
+    </axis>
+  </joint>
+  <!-- link: wheel -->
+  <link name="right_back_wheel">
+    <pose relative_to="right_leg_base">-0.12 0 -0.06 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="right_back_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="right_back_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.5</mass>
+      <inertia>
+        <ixx>7.999999999999997e-05</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>7.999999999999997e-05</iyy>
+        <iyz>0.0</iyz>
+        <izz>7.999999999999997e-05</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- joint: parent_base -> wheel -->
+  <joint name="right_leg_base_to_right_back_wheel" type="revolute">
+    <parent>right_leg_base</parent>
+    <child>right_back_wheel</child>
+    <axis>
+      <xyz>0 1 0</xyz>
+    </axis>
+  </joint>
+  <!-- link: leg -->
+  <link name="left_leg">
+    <pose relative_to="base_link">0 -0.19999999999999998 -0.06 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="left_leg">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.19999999999999998 0.09999999999999999 0.6</size>
+        </box>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="left_leg">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.19999999999999998 0.09999999999999999 0.6</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.5</mass>
+      <inertia>
+        <ixx>0.015416666666666665</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>0.016666666666666663</iyy>
+        <iyz>0.0</iyz>
+        <izz>0.002083333333333333</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- link: leg_base -->
+  <link name="left_leg_base">
+    <pose relative_to="left_leg">0 0 -0.3 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="left_leg_base">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.39999999999999997 0.09999999999999999 0.09999999999999999</size>
+        </box>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="left_leg_base">0 0 0 0 0 0</pose>
+      <geometry>
+        <box>
+          <size>0.39999999999999997 0.09999999999999999 0.09999999999999999</size>
+        </box>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>1.5</mass>
+      <inertia>
+        <ixx>0.0024999999999999996</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>0.021249999999999998</iyy>
+        <iyz>0.0</iyz>
+        <izz>0.021249999999999998</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- joint: parent -> leg -->
+  <joint name="base_to_left_leg" type="fixed">
+    <parent>base_link</parent>
+    <child>left_leg</child>
+  </joint>
+  <!-- joint: leg -> leg_base -->
+  <joint name="left_leg_to_left_leg_base" type="fixed">
+    <parent>left_leg</parent>
+    <child>left_leg_base</child>
+  </joint>
+  <!-- link: wheel -->
+  <link name="left_front_wheel">
+    <pose relative_to="left_leg_base">0.12 0 -0.06 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="left_front_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="left_front_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.5</mass>
+      <inertia>
+        <ixx>7.999999999999997e-05</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>7.999999999999997e-05</iyy>
+        <iyz>0.0</iyz>
+        <izz>7.999999999999997e-05</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- joint: parent_base -> wheel -->
+  <joint name="left_leg_base_to_left_front_wheel" type="revolute">
+    <parent>left_leg_base</parent>
+    <child>left_front_wheel</child>
+    <axis>
+      <xyz>0 1 0</xyz>
+    </axis>
+  </joint>
+  <!-- link: wheel -->
+  <link name="left_center_wheel">
+    <pose relative_to="left_leg_base">0 0 -0.06122448979591836 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="left_center_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="left_center_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.5</mass>
+      <inertia>
+        <ixx>7.999999999999997e-05</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>7.999999999999997e-05</iyy>
+        <iyz>0.0</iyz>
+        <izz>7.999999999999997e-05</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- joint: parent_base -> wheel -->
+  <joint name="left_leg_base_to_left_center_wheel" type="revolute">
+    <parent>left_leg_base</parent>
+    <child>left_center_wheel</child>
+    <axis>
+      <xyz>0 1 0</xyz>
+    </axis>
+  </joint>
+  <!-- link: wheel -->
+  <link name="left_back_wheel">
+    <pose relative_to="left_leg_base">-0.12 0 -0.06 0 0 0</pose>
+    <visual name="visual">
+      <pose relative_to="left_back_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <pose relative_to="left_back_wheel">0 0 0 0 0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.019999999999999997</radius>
+        </sphere>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass>0.5</mass>
+      <inertia>
+        <ixx>7.999999999999997e-05</ixx>
+        <ixy>0.0</ixy>
+        <ixz>0.0</ixz>
+        <iyy>7.999999999999997e-05</iyy>
+        <iyz>0.0</iyz>
+        <izz>7.999999999999997e-05</izz>
+      </inertia>
+    </inertial>
+  </link>
+  <!-- joint: parent_base -> wheel -->
+  <joint name="left_leg_base_to_left_back_wheel" type="revolute">
+    <parent>left_leg_base</parent>
+    <child>left_back_wheel</child>
+    <axis>
+      <xyz>0 1 0</xyz>
+    </axis>
+  </joint>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
+
+        <ros>
+          <!-- <namespace>/r2d2</namespace> -->
+          <!-- <remapping>cmd_vel:=cmd_vel</remapping> -->
+          <!-- <remapping>odom:=odom</remapping> -->
+        </ros>
+
+        <update_rate>30</update_rate>
+        <command_topic>cmd_vel</command_topic>
+
+        <!-- wheels -->
+        <left_joint>left_leg_base_to_left_center_wheel</left_joint>
+        <right_joint>right_leg_base_to_right_center_wheel</right_joint>
+
+        <!-- kinematics -->
+        <wheel_separation>0.4</wheel_separation>
+        <wheel_diameter>0.04</wheel_diameter>
+
+        <!-- limits -->
+        <max_wheel_torque>20</max_wheel_torque>
+        <max_wheel_acceleration>1.0</max_wheel_acceleration>
+
+        <!-- output -->
+        <publish_odom>true</publish_odom>
+        <publish_odom_tf>true</publish_odom_tf>
+        <publish_wheel_tf>false</publish_wheel_tf>
+
+        <odometry_topic>odom</odometry_topic>
+        <odometry_frame>odom</odometry_frame>
+        <robot_base_frame>base_footprint</robot_base_frame>
+
+      </plugin>
+
+
+
+  <!-- laser -->
+  <joint name="base_to_laser" type="fixed">
+    <parent>base_link</parent>
+    <child>base_scan</child>
+  </joint>
+  <link name="base_scan">
+    <pose relative_to="base_link">0.11 0 -0.3 0 0 0</pose>
+    <sensor name="laser" type="ray">
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>180</samples>
+            <resolution>1.0</resolution>
+            <min_angle>-1.57</min_angle>
+            <max_angle>1.57</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.2</min>
+          <max>10.0</max>
+          <resolution>0.015000</resolution>
+        </range>
+      </ray>
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>             
+      <plugin name="laserscan" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <remapping>~/out:=scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>base_scan</frame_name>
+      </plugin>
+    </sensor>
+
+  </link>
+
+
+    <plugin name="joint_state" filename="libgazebo_ros_joint_state_publisher.so">
+      <ros>
+        <!-- <remapping>~/out:=joint_states</remapping> -->
+      </ros>
+      <update_rate>30</update_rate>
+      <joint_name>left_leg_base_to_left_center_wheel</joint_name>
+      <joint_name>right_leg_base_to_right_center_wheel</joint_name>
+      <!-- <joint_name>joint_base_footprint_to_base</joint_name> -->
+    </plugin>  
+
+
+  </model>
+</sdf>

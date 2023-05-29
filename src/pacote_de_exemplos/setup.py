@@ -28,7 +28,7 @@ setup(
     name=package_name,
     version='0.0.0',
     packages=[package_name],
-    data_files=package_files(data_files, [ 'launch/']),
+    data_files=package_files(data_files, [ 'config/', 'launch/', 'simulation/', 'urdf/']),
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='Fagner Pimentel',

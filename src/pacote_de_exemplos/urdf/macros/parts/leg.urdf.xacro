@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="wheel.urdf.xacro" />
+
+  <xacro:macro name="leg" params="name parent *origin">
+
+    <!-- joint: parent -> leg -->
+    <joint name="${parent}_to_${name}_leg" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_leg"/>
+    </joint>
+
+    <!-- link: leg -->
+    <link name="${name}_leg">
+      <xacro:create_box m="${leg_mass}" x="${leg_x}" y="${leg_y}" z="${leg_z}">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:create_box>
+    </link>
+
+    <!-- joint: leg -> leg_base -->
+    <joint name="${name}_leg_to_${name}_leg_base" type="fixed">
+      <origin xyz="0 0 -${robot_scale/2}" rpy="0 0 0"/>
+      <parent link="${name}_leg"/>
+      <child link="${name}_leg_base"/>
+    </joint>
+
+    <!-- link: leg_base -->
+    <link name="${name}_leg_base">
+      <xacro:create_box m="${leg_base_mass}" x="${2*robot_scale/3}" y="${robot_scale/6}" z="${robot_scale/6}">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:create_box>
+    </link>
+
+    <!-- front wheel -->
+    <xacro:wheel name="${name}_front_wheel" parent="${name}_leg_base">
+      <origin xyz="${robot_scale/5} 0 -${robot_scale/10}" rpy="-1.57 0 0"/>
+    </xacro:wheel>
+
+    <!-- center wheel -->
+    <xacro:wheel name="${name}_center_wheel" parent="${name}_leg_base">
+      <origin xyz="0 0 -${robot_scale/10 + 0.001}" rpy="-1.57 0 0"/>
+    </xacro:wheel>
+
+    <!-- back wheel -->
+    <xacro:wheel name="${name}_back_wheel" parent="${name}_leg_base">
+      <origin xyz="-${robot_scale/5} 0 -${robot_scale/10}" rpy="-1.57 0 0"/>
+    </xacro:wheel>
+
+  </xacro:macro>
+
+</robot>

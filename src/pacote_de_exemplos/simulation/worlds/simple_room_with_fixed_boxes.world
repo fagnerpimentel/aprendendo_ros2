@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="simple_room_with_fixed_boxes">
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0 0 40 0 1.57 0</pose>
+      </camera>
+    </gui>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://simple_room</uri>
+      <pose>0 0 0 0 -0 0</pose>
+    </include>
+
+    <population name="square_population">
+      <pose>-0.5 -0.5 0 0 0 0</pose>
+      <model name="chess">
+        <include>
+          <name>square1</name>
+          <static>true</static>
+          <pose>0 0 0 0 0 0</pose>
+          <uri>model://wood_square</uri>
+        </include>
+        <include>
+          <name>square2</name>
+          <static>true</static>
+          <pose>1 1 0 0 0 0</pose>
+          <uri>model://wood_square</uri>
+        </include>
+      </model>
+      <!-- <box>
+        <size>20 20 0</size>
+      </box> -->
+      <distribution>
+        <type>grid</type>
+        <rows>10</rows>
+        <cols>10</cols>
+        <step>2 2 0</step>
+      </distribution>
+    </population>    
+
+
+    <model name="box_1">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>0 -2 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_2">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>-3 -1 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_3">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>-3 -6 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_4">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>-4 -9 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_5">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>-5 -3 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_6">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>-5 -2 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_7">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>-6 -5 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_8">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>-8 -2 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_9">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>-8 -4 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_10">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>-9 -4 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_11">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>0 2 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_12">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>3 2 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_13">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>3 4 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_14">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>4 5 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_15">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>5 5 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_16">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>5 6 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_17">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>6 8 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_18">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>8 8 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_19">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>8 9 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+    <model name="box_20">
+      <include>
+        <name>box</name>
+        <static>true</static>
+        <pose>9 9 0 0 0 0</pose>
+        <uri>model://box</uri>
+      </include>
+    </model>
+
+  </world>
+</sdf>
