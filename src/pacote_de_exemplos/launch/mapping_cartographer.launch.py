@@ -6,6 +6,12 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
+    log_level = DeclareLaunchArgument(
+        name='log_level', 
+        default_value='INFO', 
+        choices=['DEBUG','INFO','WARN','ERROR','FATAL'],
+        description='Flag to set log level')
+
     simulation = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([get_package_share_directory('pacote_de_exemplos'), '/launch/simulation.launch.py']),
            launch_arguments={
@@ -34,7 +40,8 @@ def generate_launch_description():
         }],
         arguments=[
             '-configuration_directory', [get_package_share_directory('pacote_de_exemplos'), '/config/nav/'],
-            '-configuration_basename', 'cartographer.lua'
+            '-configuration_basename', 'cartographer.lua',
+            '--ros-args', '--log-level', LaunchConfiguration('log_level')
         ]
     )
 
@@ -48,11 +55,13 @@ def generate_launch_description():
         }],
         arguments=[
             '-resolution', '0.05', 
-            '-publish_period_sec', '1.0'
+            '-publish_period_sec', '1.0',
+            '--ros-args', '--log-level', LaunchConfiguration('log_level')
         ]
     )
 
     ld = LaunchDescription()
+    ld.add_action(log_level)
     ld.add_action(simulation)
     ld.add_action(robot)
     ld.add_action(cartographer)

@@ -9,9 +9,9 @@ class MeuNo(Node):
         # Aqui é definido o nome do nó
         super().__init__('no_com_classe')
 
-        # Define o nível do logger
-        logger = self.get_logger()
-        logger.set_level(LoggingSeverity.INFO)
+        # # Define o nível do logger
+        # logger = self.get_logger()
+        # logger.set_level(LoggingSeverity.INFO)
 
     # Aqui o seu nó está executando no ROS
     def run(self):

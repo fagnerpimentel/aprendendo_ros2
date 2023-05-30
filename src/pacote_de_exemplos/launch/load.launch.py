@@ -29,6 +29,13 @@ def generate_launch_description():
     robot_description = ParameterValue(Command(['xacro ', LaunchConfiguration('model')]),
                                        value_type=str)
 
+    log_level = DeclareLaunchArgument(
+        name='log_level', 
+        default_value='INFO', 
+        choices=['DEBUG','INFO','WARN','ERROR','FATAL'],
+        description='Flag to set log level'
+    )
+
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -36,7 +43,8 @@ def generate_launch_description():
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time'), 
             'robot_description': robot_description
-        }]
+        }],
+        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
 
     # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
@@ -47,7 +55,8 @@ def generate_launch_description():
         output='log',
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time')
-        }]
+        }],
+        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
 
     joint_state_publisher_gui_node = Node(
@@ -57,7 +66,8 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('gui')),
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time')
-        }]
+        }],
+        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
 
     rviz_node = Node(
@@ -68,7 +78,8 @@ def generate_launch_description():
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time')
         }],
-        arguments=['-d', LaunchConfiguration('rvizconfig')],
+        arguments=['-d', LaunchConfiguration('rvizconfig'), '--ros-args', '--log-level', LaunchConfiguration('log_level')]
+
     )
 
     teleop = Node(
@@ -79,28 +90,29 @@ def generate_launch_description():
         prefix=["xterm -hold -e"],
         remappings=[
             # ('/cmd_vel', '/demo/cmd_vel'),
-        ]
+        ],
+        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
 
     spawn_entity = Node(
     	package='gazebo_ros', 
     	executable='spawn_entity.py',
-        arguments=['-entity', 'sam_bot', '-topic', 'robot_description'],
-        output='log',
+        arguments=['-entity', 'sam_bot', '-topic', 'robot_description', '--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
 
     robot_localization_node = Node(
          package='robot_localization',
          executable='ekf_node',
          name='ekf_filter_node',
-         output='log',
          parameters=[
              [get_package_share_directory('pacote_de_exemplos'), '/config/nav/ekf.yaml'], 
              {'use_sim_time': LaunchConfiguration('use_sim_time')}
-        ]
+        ],
+        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
     
     return LaunchDescription([
+        log_level,
         gui_arg,
         model_arg,
         rviz_arg,

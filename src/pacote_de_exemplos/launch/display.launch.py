@@ -27,7 +27,6 @@ def generate_launch_description():
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        output='log',
         parameters=[{'robot_description': robot_description}]
     )
 
@@ -35,14 +34,12 @@ def generate_launch_description():
     joint_state_publisher_node = Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
-        output='log',
         condition=UnlessCondition(LaunchConfiguration('gui'))
     )
 
     joint_state_publisher_gui_node = Node(
         package='joint_state_publisher_gui',
         executable='joint_state_publisher_gui',
-        output='log',
         condition=IfCondition(LaunchConfiguration('gui'))
     )
 
@@ -50,7 +47,6 @@ def generate_launch_description():
         package='rviz2',
         executable='rviz2',
         name='rviz2',
-        output='log',
         arguments=['-d', LaunchConfiguration('rvizconfig')],
     )
 

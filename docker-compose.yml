@@ -33,7 +33,7 @@ services:
       - |
         xterm -hold -T Terminal -e "tmux" |
         ros2 run rqt_console rqt_console |
-        ros2 rqt_logger_level rqt_logger_level |
+        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos exemplo.launch.py" 
         # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos display.launch.py" 
         # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos load.launch.py" 
         # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_slam_toolbox.launch.py" 
