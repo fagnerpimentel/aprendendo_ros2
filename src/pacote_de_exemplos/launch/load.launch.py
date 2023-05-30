@@ -32,6 +32,7 @@ def generate_launch_description():
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
+        output='log',
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time'), 
             'robot_description': robot_description
@@ -43,6 +44,7 @@ def generate_launch_description():
         package='joint_state_publisher',
         executable='joint_state_publisher',
         condition=UnlessCondition(LaunchConfiguration('gui')),
+        output='log',
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time')
         }]
@@ -51,6 +53,7 @@ def generate_launch_description():
     joint_state_publisher_gui_node = Node(
         package='joint_state_publisher_gui',
         executable='joint_state_publisher_gui',
+        output='log',
         condition=IfCondition(LaunchConfiguration('gui')),
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time')
@@ -61,7 +64,7 @@ def generate_launch_description():
         package='rviz2',
         executable='rviz2',
         name='rviz2',
-        output='own_log',
+        output='log',
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time')
         }],
@@ -72,7 +75,7 @@ def generate_launch_description():
         name='teleop_twist_keyboard',
         package='teleop_twist_keyboard',
         executable='teleop_twist_keyboard',
-        output='screen',
+        output='log',
         prefix=["xterm -hold -e"],
         remappings=[
             # ('/cmd_vel', '/demo/cmd_vel'),
@@ -83,14 +86,14 @@ def generate_launch_description():
     	package='gazebo_ros', 
     	executable='spawn_entity.py',
         arguments=['-entity', 'sam_bot', '-topic', 'robot_description'],
-        output='screen',
+        output='log',
     )
 
     robot_localization_node = Node(
          package='robot_localization',
          executable='ekf_node',
          name='ekf_filter_node',
-         output='screen',
+         output='log',
          parameters=[
              [get_package_share_directory('pacote_de_exemplos'), '/config/nav/ekf.yaml'], 
              {'use_sim_time': LaunchConfiguration('use_sim_time')}

@@ -24,7 +24,7 @@ WORKDIR /home/robot/ws_aprendendo_ros2
 RUN cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends apt-utils git
-RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models/
+# RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models/
 
 
 COPY instalar_dependencias.sh .

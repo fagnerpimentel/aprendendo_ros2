@@ -36,9 +36,11 @@ def generate_launch_description():
              }.items(),
     )
 
-    return LaunchDescription([
-        simulation,
-        robot,
-        # slam_toobox,
-        nav2
-    ])
+
+    ld = LaunchDescription()
+    ld.add_action(simulation)
+    ld.add_action(robot)
+    # ld.add_action(slam_toobox)
+    ld.add_action(nav2)
+
+    return ld

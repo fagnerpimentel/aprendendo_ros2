@@ -20,7 +20,6 @@ def generate_launch_description():
 
     gazebo = ExecuteProcess(
         cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', LaunchConfiguration('world_path')], 
-        output='screen'
     )
     
     return LaunchDescription([

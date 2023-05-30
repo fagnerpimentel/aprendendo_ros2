@@ -17,18 +17,13 @@ services:
       context: .
       dockerfile: dockerfile
     image: aprendendo_ros2:latest
-
-  terminal:
-    image: aprendendo_ros2:latest
     ipc: host
-    depends_on:
-      - xserver
-      - ros-master
-    volumes_from:
-      - xserver
-      - ros-master
     volumes:
       - ./src:/home/robot/ws_aprendendo_ros2/src:rw
+    depends_on:
+      - xserver
+    volumes_from:
+      - xserver
     environment:  
       - ROS_MASTER_URI=:http://ros-master:11311    
       - DISPLAY=:9
@@ -36,9 +31,11 @@ services:
       - /bin/bash
       - -c
       - |
-        # xterm -hold -T Terminal -e "tmux" 
-        # xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos display.launch.py" 
-        # xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos load.launch.py" 
-        # xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos mapping_slam_toolbox.launch.py" 
-        # xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
-        xterm -hold -T Terminal -e "ros2 launch pacote_de_exemplos navigation.launch.py" 
+        xterm -hold -T Terminal -e "tmux" |
+        ros2 run rqt_console rqt_console |
+        ros2 rqt_logger_level rqt_logger_level |
+        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos display.launch.py" 
+        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos load.launch.py" 
+        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_slam_toolbox.launch.py" 
+        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
+        xterm -hold -T teste -e "ros2 launch pacote_de_exemplos navigation.launch.py" 

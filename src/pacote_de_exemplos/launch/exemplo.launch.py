@@ -7,6 +7,6 @@ def generate_launch_description():
             name='no_simples',
             package='pacote_de_exemplos',
             executable='no_simples',
-            output='screen'
+            output='log',
         ),
     ])

@@ -24,7 +24,7 @@ def generate_launch_description():
         package='cartographer_ros',
         executable='cartographer_node',
         name='cartographer_node',
-        output='screen',
+        output='log',
         remappings=[
             ('scan', 'scan'),
             ('imu', 'imu'),
@@ -42,7 +42,7 @@ def generate_launch_description():
         package='cartographer_ros',
         executable='cartographer_occupancy_grid_node',
         name='occupancy_grid_node',
-        output='screen',
+        output='log',
         parameters=[{
             'use_sim_time': True
         }],
