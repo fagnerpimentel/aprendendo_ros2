@@ -13,10 +13,7 @@ services:
       - "3000:80"
 
   ros-master:
-    build: 
-      context: .
-      dockerfile: dockerfile
-    image: aprendendo_ros2:latest
+    image: fagnerpimentel/aprendendo_ros2:latest
     ipc: host
     volumes:
       - ./src:/home/robot/ws_aprendendo_ros2/src:rw
@@ -33,9 +30,8 @@ services:
       - |
         xterm -hold -T Terminal -e "tmux" |
         ros2 run rqt_console rqt_console |
-        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos exemplo.launch.py" 
-        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos display.launch.py" 
-        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos load.launch.py" 
-        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_slam_toolbox.launch.py" 
-        # xterm -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
-        xterm -hold -T teste -e "ros2 launch pacote_de_exemplos navigation.launch.py" 
+        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos exemplo.launch.py" 
+        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos display.launch.py" 
+        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_slam_toolbox.launch.py" 
+        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
+        xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos navigation.launch.py" 

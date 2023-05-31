@@ -33,6 +33,7 @@ RUN apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-gazebo-ros \
     ros-$ROS_DISTRO-gazebo-ros-pkgs \
     ros-$ROS_DISTRO-joint-state-publisher \
+    ros-$ROS_DISTRO-joint-state-publisher-gui \
     ros-$ROS_DISTRO-robot-localization \
     ros-$ROS_DISTRO-slam-toolbox \
     ros-$ROS_DISTRO-cartographer-ros \
@@ -53,8 +54,8 @@ RUN echo "bind-key -n C-Up select-pane -U"                                      
 RUN echo "bind-key -n C-Down select-pane -D"                                                >> ~/.tmux.conf
 RUN echo "bind -n M-Right split-window -h"                                                  >> ~/.tmux.conf
 RUN echo "bind -n M-Down split-window -v"                                                   >> ~/.tmux.conf
-RUN echo "bind C-c run 'tmux save-buffer - | xclip -i -sel clipboard'"                      >> ~/.tmux.conf
-RUN echo "bind C-v run 'tmux set-buffer '\$(xclip -o -sel clipboard)'; tmux paste-buffer'"   >> ~/.tmux.conf
+# RUN echo "bind C-c run 'tmux save-buffer - | xclip -i -sel clipboard'"                      >> ~/.tmux.conf
+# RUN echo "bind C-v run 'tmux set-buffer '\$(xclip -o -sel clipboard)'; tmux paste-buffer'"   >> ~/.tmux.conf
 
 # download modelos do gazebo 
 RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models/
@@ -70,3 +71,11 @@ RUN chmod +x entrypoint.sh
 ENTRYPOINT [ "/home/robot/ws_aprendendo_ros2/entrypoint.sh" ]
 
 # USER robot
+
+
+
+
+# ----------------------------------------------------------------
+# docker build -t fagnerpimentel/aprendendo_ros2:latest .
+# docker login -u "myusername" -p "mypassword" docker.io
+# docker push fagnerpimentel/aprendendo_ros2:latest
