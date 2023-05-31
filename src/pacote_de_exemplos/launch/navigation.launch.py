@@ -10,7 +10,7 @@ def generate_launch_description():
 
     log_level = DeclareLaunchArgument(
         name='log_level', 
-        default_value='DEBUG', 
+        default_value='FATAL', 
         choices=['DEBUG','INFO','WARN','ERROR','FATAL'],
         description='Flag to set log level')
 
