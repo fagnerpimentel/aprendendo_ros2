@@ -29,9 +29,9 @@ services:
       - -c
       - |
         xterm -hold -T Terminal -e "tmux" |
-        ros2 run rqt_console rqt_console |
+        ros2 run rqt_gui rqt_gui --perspective-file src/pacote_de_exemplos/config/Default.perspective |
         # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos exemplo.launch.py" 
         # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos display.launch.py" 
         # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_slam_toolbox.launch.py" 
-        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
-        xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos navigation.launch.py" 
+        xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
+        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos navigation.launch.py" 
