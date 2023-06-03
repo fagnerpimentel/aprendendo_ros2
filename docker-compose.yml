@@ -33,5 +33,6 @@ services:
         # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos exemplo.launch.py" 
         # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos display.launch.py" 
         # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_slam_toolbox.launch.py" 
-        xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
+        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
         # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos navigation.launch.py" 
+        xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos turtlebot.launch.py"

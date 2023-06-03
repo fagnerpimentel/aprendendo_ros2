@@ -38,7 +38,8 @@ RUN apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-slam-toolbox \
     ros-$ROS_DISTRO-cartographer-ros \
     ros-$ROS_DISTRO-navigation2 \
-    ros-$ROS_DISTRO-nav2-bringup
+    ros-$ROS_DISTRO-nav2-bringup \
+    ros-$ROS_DISTRO-turtlebot3*
 RUN pip install setuptools==58.2.0
 
 # config tmux
