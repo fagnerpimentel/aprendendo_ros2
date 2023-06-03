@@ -10,7 +10,7 @@ def generate_launch_description():
 
     gz_model_path = SetEnvironmentVariable(
         name='GAZEBO_MODEL_PATH',
-        value=['/home/robot/gazebo_models:',get_package_share_directory('pacote_de_exemplos'),'/simulation/models']
+        value=['/home/robot/gazebo_models:',get_package_share_directory('pacote_de_exemplos'),'/simulation/models:/opt/ros/humble/share/turtlebot3_gazebo/models']
     )
 
     gz_model_uri = SetEnvironmentVariable(

@@ -6,6 +6,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
+from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
@@ -15,7 +16,7 @@ def generate_launch_description():
     )
 
     gazebo_model = SetEnvironmentVariable(
-        name='GAZEBO_MODEL_PATH', value='$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models'
+        name='GAZEBO_MODEL_PATH', value=['$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models:',get_package_share_directory('pacote_de_exemplos'),'/simulation/models']
     )
 
     tb3 = IncludeLaunchDescription(
@@ -23,6 +24,8 @@ def generate_launch_description():
         launch_arguments={
             'headless': 'False',
             # 'slam': 'True',
+            'map': [get_package_share_directory('pacote_de_exemplos'),'/config/map/map.yaml'],
+            'world': [get_package_share_directory('pacote_de_exemplos'), '/simulation/worlds/simple_room_with_fixed_boxes.world']
         }.items()
     )
 

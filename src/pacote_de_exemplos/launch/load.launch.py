@@ -9,9 +9,14 @@ from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 from ament_index_python.packages import get_package_share_directory
 
-world_path = ''
 
 def generate_launch_description():
+
+    declare_namespace_cmd = DeclareLaunchArgument(
+        'namespace',
+        default_value='',
+        description='Top-level namespace')
+
     urdf_tutorial_path = get_package_share_path('pacote_de_exemplos')
     default_model_path = urdf_tutorial_path / 'urdf/myfirstrobot.urdf.xacro'
     # default_model_path = urdf_tutorial_path / 'urdf/sam_bot_description.urdf'
@@ -44,31 +49,35 @@ def generate_launch_description():
             'use_sim_time': LaunchConfiguration('use_sim_time'), 
             'robot_description': robot_description
         }],
+        remappings=[
+            ('/tf', 'tf'),
+            ('/tf_static', 'tf_static')
+        ],
         arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
 
-    # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
-    joint_state_publisher_node = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        condition=UnlessCondition(LaunchConfiguration('gui')),
-        output='log',
-        parameters=[{
-            'use_sim_time': LaunchConfiguration('use_sim_time')
-        }],
-        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
-    )
+    # # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
+    # joint_state_publisher_node = Node(
+    #     package='joint_state_publisher',
+    #     executable='joint_state_publisher',
+    #     condition=UnlessCondition(LaunchConfiguration('gui')),
+    #     output='log',
+    #     parameters=[{
+    #         'use_sim_time': LaunchConfiguration('use_sim_time')
+    #     }],
+    #     arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
+    # )
 
-    joint_state_publisher_gui_node = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        output='log',
-        condition=IfCondition(LaunchConfiguration('gui')),
-        parameters=[{
-            'use_sim_time': LaunchConfiguration('use_sim_time')
-        }],
-        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
-    )
+    # joint_state_publisher_gui_node = Node(
+    #     package='joint_state_publisher_gui',
+    #     executable='joint_state_publisher_gui',
+    #     output='log',
+    #     condition=IfCondition(LaunchConfiguration('gui')),
+    #     parameters=[{
+    #         'use_sim_time': LaunchConfiguration('use_sim_time')
+    #     }],
+    #     arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
+    # )
 
     rviz_node = Node(
         package='rviz2',
@@ -97,31 +106,35 @@ def generate_launch_description():
     spawn_entity = Node(
     	package='gazebo_ros', 
     	executable='spawn_entity.py',
-        arguments=['-entity', 'sam_bot', '-topic', 'robot_description', '--ros-args', '--log-level', LaunchConfiguration('log_level')]
+        arguments=[
+            '-entity', 'sam_bot', 
+            '-topic', 'robot_description', 
+            '--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
 
-    robot_localization_node = Node(
-         package='robot_localization',
-         executable='ekf_node',
-         name='ekf_filter_node',
-         parameters=[
-             [get_package_share_directory('pacote_de_exemplos'), '/config/nav/ekf.yaml'], 
-             {'use_sim_time': LaunchConfiguration('use_sim_time')}
-        ],
-        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
-    )
+    # robot_localization_node = Node(
+    #      package='robot_localization',
+    #      executable='ekf_node',
+    #      name='ekf_filter_node',
+    #      parameters=[
+    #          [get_package_share_directory('pacote_de_exemplos'), '/config/nav/ekf.yaml'], 
+    #          {'use_sim_time': LaunchConfiguration('use_sim_time')}
+    #     ],
+    #     arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
+    # )
     
     return LaunchDescription([
+        declare_namespace_cmd,
         log_level,
         gui_arg,
         model_arg,
         rviz_arg,
         use_sim_time_arg,
-        joint_state_publisher_node,
-        joint_state_publisher_gui_node,
+        # joint_state_publisher_node,
+        # joint_state_publisher_gui_node,
         robot_state_publisher_node,
         spawn_entity,
-        robot_localization_node,
+        # robot_localization_node,
         rviz_node,
         teleop
     ])
