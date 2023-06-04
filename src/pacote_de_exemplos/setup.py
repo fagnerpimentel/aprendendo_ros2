@@ -40,6 +40,7 @@ setup(
         'console_scripts': [
             'no_simples = pacote_de_exemplos.no_simples:main',
             'no_com_classe = pacote_de_exemplos.no_com_classe:main',
+            'checkpoints = pacote_de_exemplos.checkpoints:main'
         ],
     },
 )
