@@ -44,11 +44,23 @@ def generate_launch_description():
             'slam': 'False',
             'map': [get_package_share_directory('pacote_de_exemplos'),'/config/map/map.yaml'],
             'use_sim_time': 'True',
-            'params_file': [get_package_share_directory('nav2_bringup'),'/params/nav2_params.yaml'],
+            # 'params_file': [get_package_share_directory('nav2_bringup'),'/params/nav2_params.yaml'],
+            'params_file': [get_package_share_directory('pacote_de_exemplos'),'/config/nav/nav2_params.yaml'],
             'autostart': 'True',
             'use_composition': 'True',
             'use_respawn': 'False'
         }.items()
+    )
+
+
+    checkpoint = Node(
+        package='pacote_de_exemplos',
+        executable='checkpoints',
+        name='checkpoints',
+        parameters=[{
+            'checkpoints_file': get_package_share_directory('pacote_de_exemplos')+'/config/map/checkpoints.json'
+        }],
+        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')],
     )
 
 # -----------------------------------------------------
@@ -58,5 +70,6 @@ def generate_launch_description():
     ld.add_action(simulation)
     ld.add_action(load_robot)
     ld.add_action(bringup_cmd)
+    ld.add_action(checkpoint)
 
     return ld
