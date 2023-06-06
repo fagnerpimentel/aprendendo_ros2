@@ -27,7 +27,7 @@ def generate_launch_description():
     load_robot = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([get_package_share_directory('pacote_de_exemplos'),'/launch/load.launch.py']),
         launch_arguments={
-            'rvizconfig': [get_package_share_directory('nav2_bringup'),'/rviz/nav2_default_view.rviz'],
+            'rvizconfig': [get_package_share_directory('pacote_de_exemplos'), '/config/rviz/navigation.rviz'],
         }.items()
 
         

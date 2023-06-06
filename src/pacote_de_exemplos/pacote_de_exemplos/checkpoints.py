@@ -35,7 +35,7 @@ class Checkpoints(Node):
                 p.pose.orientation.x = i['orientation']['x']
                 p.pose.orientation.y = i['orientation']['y']
                 p.pose.orientation.z = i['orientation']['z']
-                p.pose.orientation.w = i['orientation']['z']
+                p.pose.orientation.w = i['orientation']['w']
                 poses.append(p)
 
             goal_msg = FollowWaypoints.Goal()
