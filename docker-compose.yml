@@ -28,6 +28,9 @@ services:
       - /bin/bash
       - -c
       - |
+        source /opt/ros/humble/setup.bash &&
+        colcon build --symlink-install && 
+        source install/setup.bash &&
         xterm -hold -T Terminal -e "tmux" |
         ros2 run rqt_gui rqt_gui --perspective-file src/pacote_de_exemplos/config/Default.perspective |
         # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos exemplo.launch.py" 

@@ -38,8 +38,8 @@ RUN apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-slam-toolbox \
     ros-$ROS_DISTRO-cartographer-ros \
     ros-$ROS_DISTRO-navigation2 \
-    ros-$ROS_DISTRO-nav2-bringup \
-    ros-$ROS_DISTRO-turtlebot3*
+    ros-$ROS_DISTRO-nav2-bringup 
+    # ros-$ROS_DISTRO-turtlebot3*
 RUN pip install setuptools==58.2.0
 
 # config tmux
@@ -59,17 +59,17 @@ RUN echo "bind -n M-Down split-window -v"                                       
 # RUN echo "bind C-v run 'tmux set-buffer '\$(xclip -o -sel clipboard)'; tmux paste-buffer'"   >> ~/.tmux.conf
 
 # download modelos do gazebo 
-RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models/
+# RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models/
 
 # comandos carregados na inicialização dos containers
-RUN touch entrypoint.sh
-RUN echo "#!/bin/bash"                                  >> entrypoint.sh
-RUN echo "source /opt/ros/\${ROS_DISTRO}/setup.bash"    >> entrypoint.sh
-RUN echo "colcon build --symlink-install"               >> entrypoint.sh
-RUN echo "source install/setup.bash"                    >> entrypoint.sh
-RUN echo "exec \"\$@\""                                   >> entrypoint.sh
-RUN chmod +x entrypoint.sh
-ENTRYPOINT [ "/home/robot/ws_aprendendo_ros2/entrypoint.sh" ]
+# RUN touch entrypoint.sh
+# RUN echo "#!/bin/bash"                                  >> entrypoint.sh
+# RUN echo "source /opt/ros/\${ROS_DISTRO}/setup.bash"    >> entrypoint.sh
+# RUN echo "colcon build --symlink-install"               >> entrypoint.sh
+# RUN echo "source install/setup.bash"                    >> entrypoint.sh
+# RUN echo "exec \"\$@\""                                   >> entrypoint.sh
+# RUN chmod +x entrypoint.sh
+# ENTRYPOINT [ "/home/robot/ws_aprendendo_ros2/entrypoint.sh" ]
 
 # USER robot
 
