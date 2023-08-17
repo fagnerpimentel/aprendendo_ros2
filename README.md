@@ -1,17 +1,9 @@
 # aprendendo_ros2
 ## Os próximos comandos são executados fora do Docker
 
-
-Compilando o ambiente ROS
-```bash
-docker-compose build # use esse comando se você estiver rodando no linux
-docker compose build # use esse comando se você estiver rodando no windows
-```
-
 Rodando o ambiente ROS
 ```bash
-docker-compose up terminal # use esse comando se você estiver rodando no linux
-docker compose up terminal # use esse comando se você estiver rodando no windows
+docker compose up ros-master
 ```
 ---
 ## Os próximos comandos são executados dentro do Docker
@@ -47,21 +39,4 @@ ex:
 ros2 launch <nome_do_pacote> <nome_do_nó>
 # ex: ros2 launch meu_primeiro_pacote meu_primeiro_launch.py
 
-```
-
----
-## Usando o ambiente
-
-Inicializando o simulador
-```bash
-ros2 launch gazebo_ros gazebo.launch.py
-```
-
----
-## Para rodar a Hera:
-
-```bash
-source install/setup.bash
-ros2 launch gazebo_ros gazebo.launch.py
-ros2 launch hera_description load_description.launch.py
 ```
