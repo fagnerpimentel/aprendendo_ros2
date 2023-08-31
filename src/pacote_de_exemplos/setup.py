@@ -40,7 +40,10 @@ setup(
         'console_scripts': [
             'no_simples = pacote_de_exemplos.no_simples:main',
             'no_com_classe = pacote_de_exemplos.no_com_classe:main',
-            'checkpoints = pacote_de_exemplos.checkpoints:main'
+            'checkpoints = pacote_de_exemplos.checkpoints:main',
+            'talker = pacote_de_exemplos.talker:main',
+            'listener = pacote_de_exemplos.listener:main',
+            'control_r2d2 = pacote_de_exemplos.control_r2d2:main',
         ],
     },
 )

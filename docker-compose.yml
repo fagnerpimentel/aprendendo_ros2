@@ -4,7 +4,7 @@ services:
   
   xserver:
     image: devrt/xserver
-#    ipc: host
+    ipc: host
     security_opt:
       - seccomp:unconfined
     environment:
@@ -14,7 +14,7 @@ services:
 
   ros-master:
     image: fagnerpimentel/aprendendo_ros2:latest
-#    ipc: host
+    ipc: host
     volumes:
       - ./src:/home/robot/ws_aprendendo_ros2/src:rw
     depends_on:
