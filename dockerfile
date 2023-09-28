@@ -38,9 +38,12 @@ RUN apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-slam-toolbox \
     ros-$ROS_DISTRO-cartographer-ros \
     ros-$ROS_DISTRO-navigation2 \
-    ros-$ROS_DISTRO-nav2-bringup 
+    ros-$ROS_DISTRO-nav2-bringup \
+    ros-$ROS_DISTRO-tf-transformations 
     # ros-$ROS_DISTRO-turtlebot3*
+
 RUN pip install setuptools==58.2.0
+RUN pip install transforms3d
 
 # config tmux
 RUN echo "unbind -n Tab"                                                                    >> ~/.tmux.conf
