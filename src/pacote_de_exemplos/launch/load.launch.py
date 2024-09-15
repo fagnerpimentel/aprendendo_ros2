@@ -56,17 +56,17 @@ def generate_launch_description():
         arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
     )
 
-    # # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
-    # joint_state_publisher_node = Node(
-    #     package='joint_state_publisher',
-    #     executable='joint_state_publisher',
-    #     condition=UnlessCondition(LaunchConfiguration('gui')),
-    #     output='log',
-    #     parameters=[{
-    #         'use_sim_time': LaunchConfiguration('use_sim_time')
-    #     }],
-    #     arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
-    # )
+    # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        condition=UnlessCondition(LaunchConfiguration('gui')),
+        output='log',
+        parameters=[{
+            'use_sim_time': LaunchConfiguration('use_sim_time')
+        }],
+        arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')]
+    )
 
     # joint_state_publisher_gui_node = Node(
     #     package='joint_state_publisher_gui',
@@ -130,7 +130,7 @@ def generate_launch_description():
         model_arg,
         rviz_arg,
         use_sim_time_arg,
-        # joint_state_publisher_node,
+        joint_state_publisher_node,
         # joint_state_publisher_gui_node,
         robot_state_publisher_node,
         spawn_entity,
