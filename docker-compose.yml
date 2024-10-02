@@ -1,5 +1,3 @@
-version: '2'
-
 services:
   
   xserver:
@@ -13,7 +11,9 @@ services:
       - "3000:80"
 
   ros-master:
-    image: fagnerpimentel/aprendendo_ros2:latest
+    build:
+      context: .
+    # image: fagnerpimentel/aprendendo_ros2:latest
     ipc: host
     volumes:
       - ./src:/home/robot/ws_aprendendo_ros2/src:rw
@@ -24,19 +24,12 @@ services:
     environment:  
       - ROS_MASTER_URI=:http://ros-master:11311    
       - DISPLAY=:9
-    command:
-      - /bin/bash
-      - -c
-      - |
-        source /opt/ros/humble/setup.bash &&
-        colcon build --symlink-install && 
-        source install/setup.bash &&
-        xterm -hold -T Terminal -e "tmux" |
-        ros2 run rqt_gui rqt_gui --perspective-file src/pacote_de_exemplos/config/Default.perspective 
-        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos exemplo.launch.py" 
-        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos display.launch.py" 
-        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_slam_toolbox.launch.py" 
-        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos mapping_cartographer.launch.py" 
-        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos navigation.launch.py" 
-        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos turtlebot.launch.py"
-        # xterm -maximized -hold -T teste -e "ros2 launch pacote_de_exemplos navigation2.launch.py"
+      - LDS_MODEL=LDS-02
+      - TURTLEBOT3_MODEL=burger
+    ports:
+      - "3001:80"
+    # command:
+    #   - /bin/bash
+    #   - -c
+    #   - |
+    #     code serve-web --host 0.0.0.0 --port 80 --without-connection-token --accept-server-license-terms
