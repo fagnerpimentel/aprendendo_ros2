@@ -26,6 +26,7 @@ services:
       - DISPLAY=:9
       - LDS_MODEL=LDS-02
       - TURTLEBOT3_MODEL=burger
+      - DONT_PROMPT_WSL_INSTALL=No_Prompt_please
     ports:
       - "3001:80"
     # command:
