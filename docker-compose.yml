@@ -16,7 +16,7 @@ services:
     # image: fagnerpimentel/aprendendo_ros2:latest
     ipc: host
     volumes:
-      - ./src:/home/robot/ws_aprendendo_ros2/src:rw
+      - ./:/home/robot/ws_aprendendo_ros2/:rw
     depends_on:
       - xserver
     volumes_from:
@@ -29,8 +29,3 @@ services:
       - DONT_PROMPT_WSL_INSTALL=No_Prompt_please
     ports:
       - "3001:80"
-    # command:
-    #   - /bin/bash
-    #   - -c
-    #   - |
-    #     code serve-web --host 0.0.0.0 --port 80 --without-connection-token --accept-server-license-terms
