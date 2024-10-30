@@ -3,11 +3,11 @@
 
 Rodando o ambiente ROS
 ```bash
-docker compose up ros-master
+cd .devcontainer
+docker compose up
 ```
 ---
-## Os próximos comandos são executados dentro do Docker
-
+## Commandos úteis
 
 Compilando o workspace:<br>
 ```bash
@@ -38,5 +38,12 @@ ex:
 ```bash
 ros2 launch <nome_do_pacote> <nome_do_nó>
 # ex: ros2 launch meu_primeiro_pacote meu_primeiro_launch.py
+
+```
+
+Abrindo um terminal dentro do docker:<br>
+ex:
+```bash
+docker exec -it ros_env bash
 
 ```

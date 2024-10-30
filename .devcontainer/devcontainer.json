@@ -1,0 +1,19 @@
+{
+    "name": "My Codespace with Docker",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+      "docker-in-docker": "latest"
+    },
+    "postCreateCommand": "docker --version",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "ms-azuretools.vscode-docker"
+        ],
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "bash"
+        }
+      }
+    }
+  }
+  

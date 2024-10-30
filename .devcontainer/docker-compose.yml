@@ -2,21 +2,25 @@ services:
   
   xserver:
     image: devrt/xserver
-    ipc: host
-    security_opt:
-      - seccomp:unconfined
+    # ipc: host
+    # security_opt:
+    #   - seccomp:unconfined
     environment:
       - DISPLAY=:9
     ports:
       - "3000:80"
+    # volumes:
+    #   - .:/workspaces
 
   ros-master:
     build:
-      context: .
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
     # image: fagnerpimentel/aprendendo_ros2:latest
+    container_name: ros-env
     ipc: host
     volumes:
-      - ./:/home/robot/ws_aprendendo_ros2/:rw
+      - ../:/home/robot/ws_aprendendo_ros2/:rw
     depends_on:
       - xserver
     volumes_from:

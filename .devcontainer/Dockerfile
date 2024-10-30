@@ -71,6 +71,12 @@ RUN apt install -y code
 
 RUN pip install setuptools==58.2.0
 RUN pip install transforms3d
+RUN pip install bresenham
+
+# RUN apt install tigervnc-standalone-server
+# RUN apt install xpra
+# RUN pip install websockify
+# RUN apt install novnc
 
 # download modelos do gazebo 
 # RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models/
@@ -83,8 +89,17 @@ RUN echo "#!/bin/bash"                                  >> /entrypoint.sh
 # RUN echo "source install/setup.bash"                    >> /entrypoint.sh
 # RUN echo "exec \"\$@\""                                 >> /entrypoint.sh
 RUN echo "code serve-web --host 0.0.0.0 --port 80 --without-connection-token --accept-server-license-terms" >> /entrypoint.sh
+# RUN echo "vncserver -geometry 1280x1024 -depth 24" >> /entrypoint.sh
+# RUN echo "xpra start :100 --start-child=xterm" >> /entrypoint.sh
+
+# RUN echo "websockify --web=/usr/share/novnc 6080 localhost:5901" >> /entrypoint.sh
+# RUN echo "novnc --vnc localhost:5901" >> /entrypoint.sh
+
+
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
+
+
 
 # USER robot
 
