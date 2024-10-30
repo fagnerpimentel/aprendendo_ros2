@@ -73,11 +73,6 @@ RUN pip install setuptools==58.2.0
 RUN pip install transforms3d
 RUN pip install bresenham
 
-# RUN apt install tigervnc-standalone-server
-# RUN apt install xpra
-# RUN pip install websockify
-# RUN apt install novnc
-
 # download modelos do gazebo 
 # RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models/
 
