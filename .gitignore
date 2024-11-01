@@ -1,4 +1,4 @@
-build/*
-install/*
-log/*
+workspace/build/*
+workspace/install/*
+workspace/log/*
 *.pyc

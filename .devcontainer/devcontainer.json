@@ -1,10 +1,8 @@
 {
-    "name": "My Codespace with Docker",
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "features": {
-      "docker-in-docker": "latest"
-    },
-    "postCreateCommand": "docker --version",
+    "name": "Ambiente ROS2",
+    "dockerComposeFile": ["docker-compose.yml"],
+    "service": "ros-master",
+    "workspaceFolder": "/home/robot/workspace",
     "customizations": {
       "vscode": {
         "extensions": [

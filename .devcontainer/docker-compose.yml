@@ -2,25 +2,20 @@ services:
   
   xserver:
     image: devrt/xserver
-    # ipc: host
-    # security_opt:
-    #   - seccomp:unconfined
     environment:
       - DISPLAY=:9
     ports:
       - "3000:80"
-    # volumes:
-    #   - .:/workspaces
 
   ros-master:
-    build:
-      context: ..
-      dockerfile: .devcontainer/Dockerfile
-    # image: fagnerpimentel/aprendendo_ros2:latest
+    # build:
+    #   context: ..
+    #   dockerfile: .devcontainer/Dockerfile
+    image: fagnerpimentel/ros2-env:latest
     container_name: ros-env
     ipc: host
     volumes:
-      - ../:/home/robot/ws_aprendendo_ros2/:rw
+      - ../workspace/:/home/robot/workspace/:rw
     depends_on:
       - xserver
     volumes_from:
@@ -33,3 +28,4 @@ services:
       - DONT_PROMPT_WSL_INSTALL=No_Prompt_please
     ports:
       - "3001:80"
+    command: sleep infinity

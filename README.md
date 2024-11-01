@@ -44,6 +44,13 @@ ros2 launch <nome_do_pacote> <nome_do_nó>
 Abrindo um terminal dentro do docker:<br>
 ex:
 ```bash
-docker exec -it ros_env bash
+docker exec -it ros-env bash
+
+```
+
+Abrindo um servidor web do vscode dentro do docker:<br>
+ex:
+```bash
+code serve-web --host 0.0.0.0 --port 80 --without-connection-token --accept-server-license-terms
 
 ```
