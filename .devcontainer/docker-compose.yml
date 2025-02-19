@@ -1,0 +1,31 @@
+services:
+  
+  xserver:
+    image: devrt/xserver
+    environment:
+      - DISPLAY=:9
+    ports:
+      - "3000:80"
+
+  ros-master:
+    # build:
+    #   context: ..
+    #   dockerfile: .devcontainer/Dockerfile
+    image: fagnerpimentel/ros2-env:latest
+    container_name: ros-env
+    ipc: host
+    volumes:
+      - ../workspace/:/home/robot/workspace/:rw
+    depends_on:
+      - xserver
+    volumes_from:
+      - xserver
+    environment:  
+      - ROS_MASTER_URI=:http://ros-master:11311    
+      - DISPLAY=:9
+      - LDS_MODEL=LDS-02
+      - TURTLEBOT3_MODEL=burger
+      - DONT_PROMPT_WSL_INSTALL=No_Prompt_please
+    ports:
+      - "3001:80"
+    command: sleep infinity

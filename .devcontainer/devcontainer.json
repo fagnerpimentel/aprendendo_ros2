@@ -1,0 +1,17 @@
+{
+    "name": "Ambiente ROS2",
+    "dockerComposeFile": ["docker-compose.yml"],
+    "service": "ros-master",
+    "workspaceFolder": "/home/robot/workspace",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "ms-azuretools.vscode-docker"
+        ],
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "bash"
+        }
+      }
+    }
+  }
+  
