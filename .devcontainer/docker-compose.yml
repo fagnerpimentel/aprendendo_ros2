@@ -1,11 +1,85 @@
+version: "3.6"
+
 services:
-  
   xserver:
     image: devrt/xserver
     environment:
       - DISPLAY=:9
     ports:
       - "3000:80"
+
+  xserver_gazebo:
+    image: devrt/xserver
+    environment:
+      - DISPLAY=:1
+    ports:
+      - "3001:80"
+
+  xserver_rviz:
+    image: devrt/xserver
+    environment:
+      - DISPLAY=:2
+    ports:
+      - "3002:80"
+
+  xserver_rqt:
+    image: devrt/xserver
+    environment:
+      - DISPLAY=:3
+    ports:
+      - "3003:80"
+
+  gazebo:
+    image: fagnerpimentel/ros2-env:latest
+    ipc: host
+    depends_on:
+      - xserver_gazebo
+    volumes_from:
+      - xserver_gazebo
+    environment: 
+      - ROS_MASTER_URI=:http://ros-master:11311    
+      - DISPLAY=:1
+    command: 
+      - /bin/bash
+      - -c
+      - |
+        source /opt/ros/humble/setup.bash
+        ros2 launch gazebo_ros gazebo.launch.py
+
+  rviz:
+    image: fagnerpimentel/ros2-env:latest
+    ipc: host
+    depends_on:
+      - xserver_rviz
+    volumes_from:
+      - xserver_rviz
+    environment: 
+      - ROS_MASTER_URI=:http://ros-master:11311    
+      - DISPLAY=:2
+    command: 
+      - /bin/bash
+      - -c
+      - |
+        source /opt/ros/humble/setup.bash
+        ros2 rviz2 rviz2
+
+  rqt:
+    image: fagnerpimentel/ros2-env:latest
+    ipc: host
+    depends_on:
+      - xserver_rqt
+    volumes_from:
+      - xserver_rqt
+    environment: 
+      - ROS_MASTER_URI=:http://ros-master:11311    
+      - DISPLAY=:3 
+    command: 
+      - /bin/bash
+      - -c
+      - |
+        source /opt/ros/humble/setup.bash
+        ros2 rqt rqt
+
 
   ros-master:
     build:
@@ -18,8 +92,14 @@ services:
       - ../workspace/:/home/robot/workspace/:rw
     depends_on:
       - xserver
+      - gazebo
+      - rviz
+      - rqt 
     volumes_from:
       - xserver
+      - gazebo
+      - rviz
+      - rqt
     environment:  
       - ROS_MASTER_URI=:http://ros-master:11311    
       - DISPLAY=:9
@@ -27,5 +107,5 @@ services:
       - TURTLEBOT3_MODEL=burger
       - DONT_PROMPT_WSL_INSTALL=No_Prompt_please
     ports:
-      - "3001:80"
+      - "3008:80"
     command: sleep infinity
