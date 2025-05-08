@@ -8,10 +8,10 @@ services:
       - "3000:80"
 
   ros-master:
-    # build:
-    #   context: ..
-    #   dockerfile: .devcontainer/Dockerfile
-    image: fagnerpimentel/ros2-env:latest
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    # image: fagnerpimentel/ros2-env:latest
     container_name: ros-env
     ipc: host
     volumes:
