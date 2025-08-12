@@ -57,7 +57,8 @@ RUN apt install -y --no-install-recommends ros-${ROS_DISTRO}-hls-lfcd-lds-driver
 RUN apt install -y --no-install-recommends ros-${ROS_DISTRO}-dynamixel-sdk
 
 # turtlebot update
-RUN wget https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/humble-devel/turtlebot3_navigation2/param/burger.yaml
+# RUN wget https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/humble-devel/turtlebot3_navigation2/param/burger.yaml
+RUN wget https://github.com/ROBOTIS-GIT/turtlebot3/blob/humble/turtlebot3_navigation2/param/burger.yaml
 RUN mv burger.yaml /opt/ros/humble/share/turtlebot3_navigation2/param/
 
 # vscode
