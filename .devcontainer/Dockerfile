@@ -1,4 +1,4 @@
-ARG ROS_DISTRO=humble
+ARG ROS_DISTRO
 ARG DEBIAN_FRONTEND=noninteractive 
 
 FROM osrf/ros:${ROS_DISTRO}-desktop-full
@@ -16,8 +16,8 @@ RUN mkdir /home/robot
 SHELL [ "/bin/bash" , "-c"]
 
 # cria e determina diretório da area de trabalho
-RUN mkdir /home/robot/ws_aprendendo_ros2
-WORKDIR /home/robot/ws_aprendendo_ros2
+RUN mkdir /home/robot/workspace
+WORKDIR /home/robot/workspace
 
 
 # instala dependências do projeto  
@@ -37,7 +37,7 @@ RUN apt install -y --no-install-recommends libboost-system-dev
 RUN apt install -y --no-install-recommends build-essential
 RUN apt install -y --no-install-recommends libudev-dev
 
-RUN apt install -y --no-install-recommends ros-${ROS_DISTRO}-xacro 
+RUN apt install -y --no-install-recommends ros-${ROS_DISTRO}-test-msgs
 RUN apt install -y --no-install-recommends ros-${ROS_DISTRO}-gazebo-ros 
 RUN apt install -y --no-install-recommends ros-${ROS_DISTRO}-gazebo-ros-pkgs 
 RUN apt install -y --no-install-recommends ros-${ROS_DISTRO}-joint-state-publisher 
@@ -80,26 +80,6 @@ RUN pip install bresenham
 
 # download modelos do gazebo 
 # RUN git clone https://github.com/osrf/gazebo_models.git /home/robot/gazebo_models/
-
-# comandos carregados na inicialização dos containers
-RUN cd / && touch entrypoint.sh
-RUN echo "#!/bin/bash"                                  >> /entrypoint.sh
-# RUN echo "source /opt/ros/\${ROS_DISTRO}/setup.bash"    >> /entrypoint.sh
-# RUN echo "colcon build --symlink-install"               >> /entrypoint.sh
-# RUN echo "source install/setup.bash"                    >> /entrypoint.sh
-# RUN echo "exec \"\$@\""                                 >> /entrypoint.sh
-RUN echo "code serve-web --host 0.0.0.0 --port 80 --without-connection-token --accept-server-license-terms" >> /entrypoint.sh
-# RUN echo "vncserver -geometry 1280x1024 -depth 24" >> /entrypoint.sh
-# RUN echo "xpra start :100 --start-child=xterm" >> /entrypoint.sh
-
-# RUN echo "websockify --web=/usr/share/novnc 6080 localhost:5901" >> /entrypoint.sh
-# RUN echo "novnc --vnc localhost:5901" >> /entrypoint.sh
-
-
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT [ "/entrypoint.sh" ]
-
-
 
 # USER robot
 
